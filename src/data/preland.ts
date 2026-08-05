@@ -94,7 +94,7 @@ export const article = {
   /** Дата публикации в ISO. Отображается локализованно. */
   publishedAt: '2026-08-04T09:00:00Z',
   readingTime: '',
-  heroImage: '/images/article-hero.svg',
+  heroImage: '/images/BUFFET.jpeg',
   heroImageAlt: 'Warren Buffett portrait',
   heroCaption: '',
   shareLabel: 'Share',

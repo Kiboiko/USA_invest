@@ -81,10 +81,9 @@ export const highlightBand = {
 export const about = {
   id: 'about',
   title: `About ${landingBrand.name}`,
-  image: '/images/about-portrait.svg',
-  imageAlt: 'Placeholder portrait illustration of a company representative',
-  /** Подпись под фото — обязательно указывать, что это placeholder */
-  imageCaption: 'Placeholder image — replace with a real, rights-cleared photo.',
+  image: '/images/warren-buffett.png',
+  imageAlt: 'Warren Buffett portrait',
+  imageCaption: '',
   lead: `We are ${landingBrand.name}, a financial technology company focused on clear access to the markets.`,
   paragraphs: [
     'Our goal is to make modern market tooling understandable: live data, a straightforward setup process, and specialists who explain what you are looking at rather than leaving you with a dashboard and a help article.',

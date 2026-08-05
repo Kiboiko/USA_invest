@@ -16,9 +16,11 @@ export function About() {
             decoding="async"
             className="w-full max-w-[280px] rounded-xl border border-ink-500 bg-ink-600 md:max-w-none"
           />
-          <figcaption className="mt-2 text-[11px] text-fg-muted/70">
-            {about.imageCaption}
-          </figcaption>
+          {about.imageCaption ? (
+            <figcaption className="mt-2 text-[11px] text-fg-muted/70">
+              {about.imageCaption}
+            </figcaption>
+          ) : null}
         </figure>
 
         <div className="min-w-0">
