@@ -1,0 +1,4 @@
+/** Мини-хелпер для склейки классов без лишних зависимостей. */
+export function cn(...values: Array<string | false | null | undefined>): string {
+  return values.filter(Boolean).join(' ');
+}

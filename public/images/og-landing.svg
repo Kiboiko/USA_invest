@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img"
+     aria-label="Finvoryx Capital — modern financial technology">
+  <defs>
+    <linearGradient id="og" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1a2b"/>
+      <stop offset="1" stop-color="#060d16"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#og)"/>
+  <rect x="72" y="72" width="1056" height="486" rx="24" fill="none" stroke="#16283f" stroke-width="2"/>
+  <rect x="120" y="130" width="64" height="64" rx="12" fill="none" stroke="#4ade5a" stroke-width="4"/>
+  <text x="140" y="178" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#ffffff">F</text>
+  <text x="204" y="166" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="800" fill="#ffffff" letter-spacing="6">FINVORYX</text>
+  <text x="206" y="192" font-family="Inter, Arial, sans-serif" font-size="16" fill="#9fb3c8" letter-spacing="10">CAPITAL</text>
+  <text x="120" y="320" font-family="Inter, Arial, sans-serif" font-size="64" font-weight="800" fill="#ffffff">Modern Financial</text>
+  <text x="120" y="396" font-family="Inter, Arial, sans-serif" font-size="64" font-weight="800" fill="#ffffff">Technology <tspan fill="#4ade5a">Made Simple</tspan></text>
+  <text x="120" y="456" font-family="Inter, Arial, sans-serif" font-size="26" fill="#9fb3c8">Real-time market data · Guided setup · Specialist support</text>
+  <polyline points="120,506 220,486 320,494 420,462 520,474 620,440 720,450 820,414 920,424 1020,388"
+            fill="none" stroke="#4ade5a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+</svg>

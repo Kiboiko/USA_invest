@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img"
+     aria-label="Meridian Business Review — markets, economy, technology">
+  <rect width="1200" height="630" fill="#ffffff"/>
+  <rect x="0" y="0" width="1200" height="14" fill="#b8121a"/>
+  <rect x="96" y="96" width="56" height="56" fill="#b8121a"/>
+  <text x="106" y="136" font-family="Georgia, serif" font-size="30" font-weight="700" fill="#ffffff">MB</text>
+  <text x="172" y="138" font-family="Georgia, serif" font-size="40" font-weight="700" fill="#141414">Meridian Business Review</text>
+  <line x1="96" y1="190" x2="1104" y2="190" stroke="#e4e4e4" stroke-width="2"/>
+  <text x="96" y="240" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#b8121a" letter-spacing="4">BUSINESS / FINTECH</text>
+  <text x="96" y="326" font-family="Georgia, serif" font-size="56" font-weight="700" fill="#141414">Retail investors are rethinking</text>
+  <text x="96" y="394" font-family="Georgia, serif" font-size="56" font-weight="700" fill="#141414">how they reach the markets</text>
+  <text x="96" y="462" font-family="Georgia, serif" font-size="28" fill="#5a5a5a">Live data, structured onboarding and named support move</text>
+  <text x="96" y="502" font-family="Georgia, serif" font-size="28" fill="#5a5a5a">into consumer-grade interfaces.</text>
+  <line x1="96" y1="546" x2="1104" y2="546" stroke="#e4e4e4" stroke-width="2"/>
+  <text x="96" y="584" font-family="Inter, Arial, sans-serif" font-size="18" fill="#5a5a5a">Independent editorial project · General information only</text>
+</svg>

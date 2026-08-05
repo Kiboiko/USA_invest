@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" width="760" height="520" role="img"
+     aria-label="Illustration of a trading platform interface on desktop and mobile">
+  <defs>
+    <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#132437"/>
+      <stop offset="1" stop-color="#0c1725"/>
+    </linearGradient>
+  </defs>
+
+  <!-- desktop frame -->
+  <rect x="150" y="60" width="560" height="330" rx="16" fill="url(#screen)" stroke="#1d3550" stroke-width="2"/>
+  <path d="M150 76a16 16 0 0 1 16-16h528a16 16 0 0 1 16 16v18H150z" fill="#16283f"/>
+  <circle cx="172" cy="77" r="5" fill="#3c5876"/>
+  <circle cx="190" cy="77" r="5" fill="#3c5876"/>
+  <circle cx="208" cy="77" r="5" fill="#3c5876"/>
+  <rect x="330" y="69" width="200" height="16" rx="8" fill="#0f1e30"/>
+
+  <!-- grid lines -->
+  <g stroke="#1a2c42" stroke-width="1">
+    <line x1="175" y1="140" x2="685" y2="140"/>
+    <line x1="175" y1="200" x2="685" y2="200"/>
+    <line x1="175" y1="260" x2="685" y2="260"/>
+    <line x1="175" y1="320" x2="685" y2="320"/>
+  </g>
+
+  <!-- candles -->
+  <g>
+    <line x1="205" y1="216" x2="205" y2="290" stroke="#4ade5a" stroke-width="2"/>
+    <rect x="200" y="230" width="10" height="46" rx="2" fill="#4ade5a"/>
+    <line x1="233" y1="194" x2="233" y2="258" stroke="#ef5350" stroke-width="2"/>
+    <rect x="228" y="205" width="10" height="42" rx="2" fill="#ef5350"/>
+    <line x1="261" y1="210" x2="261" y2="288" stroke="#4ade5a" stroke-width="2"/>
+    <rect x="256" y="222" width="10" height="52" rx="2" fill="#4ade5a"/>
+    <line x1="289" y1="184" x2="289" y2="252" stroke="#4ade5a" stroke-width="2"/>
+    <rect x="284" y="196" width="10" height="44" rx="2" fill="#4ade5a"/>
+    <line x1="317" y1="166" x2="317" y2="228" stroke="#ef5350" stroke-width="2"/>
+    <rect x="312" y="176" width="10" height="38" rx="2" fill="#ef5350"/>
+    <line x1="345" y1="178" x2="345" y2="252" stroke="#4ade5a" stroke-width="2"/>
+    <rect x="340" y="190" width="10" height="50" rx="2" fill="#4ade5a"/>
+    <line x1="373" y1="150" x2="373" y2="220" stroke="#4ade5a" stroke-width="2"/>
+    <rect x="368" y="162" width="10" height="46" rx="2" fill="#4ade5a"/>
+    <line x1="401" y1="140" x2="401" y2="196" stroke="#ef5350" stroke-width="2"/>
+    <rect x="396" y="150" width="10" height="34" rx="2" fill="#ef5350"/>
+    <line x1="429" y1="146" x2="429" y2="212" stroke="#4ade5a" stroke-width="2"/>
+    <rect x="424" y="158" width="10" height="42" rx="2" fill="#4ade5a"/>
+    <line x1="457" y1="124" x2="457" y2="190" stroke="#4ade5a" stroke-width="2"/>
+    <rect x="452" y="134" width="10" height="44" rx="2" fill="#4ade5a"/>
+  </g>
+
+  <!-- trend line -->
+  <polyline points="200,268 233,238 261,250 289,224 317,200 345,214 373,182 401,166 429,180 457,150"
+            fill="none" stroke="#4ade5a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+
+  <!-- side panel -->
+  <rect x="500" y="120" width="185" height="240" rx="10" fill="#101f33" stroke="#1d3550"/>
+  <rect x="514" y="138" width="120" height="10" rx="5" fill="#22415f"/>
+  <rect x="514" y="164" width="90" height="8" rx="4" fill="#1a324c"/>
+  <rect x="514" y="184" width="150" height="8" rx="4" fill="#1a324c"/>
+  <rect x="514" y="204" width="110" height="8" rx="4" fill="#1a324c"/>
+  <rect x="514" y="232" width="157" height="34" rx="8" fill="#4ade5a" opacity="0.15"/>
+  <rect x="514" y="232" width="157" height="34" rx="8" fill="none" stroke="#4ade5a" stroke-width="1.5"/>
+  <rect x="514" y="286" width="157" height="34" rx="8" fill="#16283f"/>
+
+  <!-- phone -->
+  <rect x="60" y="150" width="180" height="330" rx="26" fill="#0b1624" stroke="#22415f" stroke-width="3"/>
+  <rect x="72" y="176" width="156" height="278" rx="14" fill="#0f1e30"/>
+  <rect x="120" y="160" width="60" height="8" rx="4" fill="#22415f"/>
+  <rect x="86" y="192" width="80" height="10" rx="5" fill="#2b4a6b"/>
+  <rect x="86" y="212" width="128" height="70" rx="8" fill="#132437"/>
+  <polyline points="94,262 112,244 130,252 148,226 166,236 184,210 204,218"
+            fill="none" stroke="#4ade5a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="86" y="296" width="128" height="10" rx="5" fill="#1a324c"/>
+  <rect x="86" y="316" width="96" height="10" rx="5" fill="#1a324c"/>
+  <rect x="86" y="352" width="60" height="30" rx="8" fill="#4ade5a"/>
+  <rect x="154" y="352" width="60" height="30" rx="8" fill="#ef5350" opacity="0.85"/>
+  <rect x="86" y="398" width="128" height="8" rx="4" fill="#1a324c"/>
+  <rect x="86" y="416" width="100" height="8" rx="4" fill="#1a324c"/>
+</svg>
