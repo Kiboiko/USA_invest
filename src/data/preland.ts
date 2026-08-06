@@ -128,7 +128,7 @@ export const articleBody: ArticleBlock[] = [
   },
   {
     type: 'emphasis',
-    text: `"My name is Warren Buffett, and I represent ${landingBrand.name}. Our goal is to make modern financial technologies accessible to everyone. That's why we created the ${landingBrand.name} platform — it combines real-time automated market data analysis with personal support from experienced specialists."`,
+    text: `"My name is Warren Buffett, and I represent [[${landingBrand.name}]]. Our goal is to make modern financial technologies accessible to everyone. That's why we created the [[${landingBrand.name}]] platform — it combines real-time automated market data analysis with personal support from experienced specialists."`,
   },
   {
     type: 'paragraph',
