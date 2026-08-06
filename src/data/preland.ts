@@ -61,26 +61,37 @@ export const prelandSeo = {
 
 export const prelandNav: NavItem[] = [
   { label: 'Home', href: '#' },
-  { label: 'Business', href: '#' },
-  { label: 'Markets', href: '#' },
-  { label: 'Technology', href: '#' },
-  { label: 'Economy', href: '#' },
-  { label: 'Opinion', href: '#' },
+  { label: 'News', href: '#' },
+  { label: 'Sport', href: '#' },
+  { label: 'Weather', href: '#' },
+  { label: 'iPlayer', href: '#' },
+  { label: 'Sounds', href: '#' },
+  { label: 'Bitesize', href: '#' },
 ];
 
 export const prelandSubNav: NavItem[] = [
-  { label: 'Companies', href: '#' },
-  { label: 'Investing', href: '#' },
-  { label: 'Personal Finance', href: '#' },
-  { label: 'Fintech', href: '#' },
-  { label: 'Analysis', href: '#' },
+  { label: 'World', href: '#' },
+  { label: 'UK', href: '#' },
+  { label: 'Business', href: '#' },
+  { label: 'Culture', href: '#' },
+  { label: 'Politics', href: '#' },
+  { label: 'Health', href: '#' },
+  { label: 'Tech', href: '#' },
+  { label: 'InDepth', href: '#' },
+  { label: 'BBC Verify', href: '#' },
+  { label: 'Climate', href: '#' },
 ];
 
 export const prelandTopBar = {
   /** статичная подпись сверху; дата подставляется автоматически */
-  location: 'Global edition',
-  newsletterLabel: 'Newsletter',
-  searchLabel: 'Search',
+  location: 'BBC News Services',
+  links: [
+    { label: 'On your mobile', href: '#' },
+    { label: 'On smart speakers', href: '#' },
+    { label: 'Get news alerts', href: '#' },
+    { label: 'Contact BBC News', href: '#' },
+  ],
+  searchLabel: 'Search BBC',
 };
 
 export const article = {
@@ -186,6 +197,48 @@ export const sidebarPromo = {
   button: 'Read the overview',
   note: 'Commercial content. Capital at risk.',
 };
+
+export const topStories = [
+  {
+    title: "LIVE Belfast attack victim has 'significant' eye injuries and slash wounds to back and face, police say",
+    meta: '25k viewing',
+  },
+  {
+    title: "LIVE Israeli air strikes hit Lebanese city of Tyre after Iranian warning to stop attacks",
+    meta: '6.5k viewing',
+  },
+  {
+    title: "Football regulator contacts West Ham over 'serious allegations' against Sullivan",
+    meta: '32 minutes ago',
+  },
+];
+
+export const moreToExplore = [
+  {
+    category: 'Business',
+    title: "Business owner losing thousands to copycats",
+    image: '/images/related-1.svg',
+    imageAlt: 'Business owner profile image',
+  },
+  {
+    category: 'Lifestyle',
+    title: "Mystery of village's elusive 'Granny H' knitter solved",
+    image: '/images/related-2.svg',
+    imageAlt: 'Craft and knitting illustration',
+  },
+  {
+    category: 'Local News',
+    title: "Woman rides school railbus again after 60 years",
+    image: '/images/related-3.svg',
+    imageAlt: 'Heritage railbus photograph',
+  },
+  {
+    category: 'Culture',
+    title: "I thought I'd got my dream flat – so did 23 others",
+    image: '/images/article-hero.svg',
+    imageAlt: 'Lifestyle story illustration',
+  },
+];
 
 export const newsletterCard = {
   title: 'The Morning Ledger',

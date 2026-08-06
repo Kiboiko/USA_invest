@@ -4,7 +4,6 @@ import { Menu, Search, X } from 'lucide-react';
 import { prelandBrand, routes } from '@/config/site';
 import { prelandNav, prelandSubNav, prelandTopBar } from '@/data/preland';
 import { useLinkWithQuery } from '@/hooks/useUtm';
-import { cn } from '@/lib/cn';
 
 function formatToday(): string {
   return new Date().toLocaleDateString('en-GB', {
@@ -38,96 +37,76 @@ export function PrelandHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-news-line bg-paper">
-      {/* Верхняя служебная полоса — только desktop */}
-      <div className="hidden border-b border-news-line md:block">
-        <div className="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-2 text-xs text-news-muted">
-          <span>{formatToday()}</span>
-          <div className="flex items-center gap-5">
-            <span>{prelandTopBar.location}</span>
-            <a href="#newsletter" className="hover:text-news-ink">
-              {prelandTopBar.newsletterLabel}
-            </a>
+    <header className="sticky top-0 z-40">
+      <div className="bg-[#141414] text-white">
+        <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-3 px-4 py-2 text-[11px] uppercase tracking-[0.24em] sm:px-6">
+          <div className="flex items-center gap-3 text-[10px] font-black tracking-[0.32em]">
+            <span className="inline-flex h-7 w-7 items-center justify-center rounded-sm bg-white text-black">BBC</span>
+            {prelandTopBar.location}
           </div>
+          <div className="hidden flex-wrap items-center gap-4 sm:flex">
+            {prelandTopBar.links.map((link) => (
+              <a key={link.label} href={link.href} className="text-white/70 transition hover:text-white">
+                {link.label}
+              </a>
+            ))}
+          </div>
+          <span className="hidden text-white/70 sm:inline">{formatToday()}</span>
         </div>
       </div>
 
-      {/* Основная строка с логотипом */}
-      <div className="mx-auto flex max-w-[1200px] items-center justify-between gap-4 px-4 py-3 sm:px-6 md:py-5">
-        <button
-          type="button"
-          className="inline-flex items-center gap-2 text-news-ink md:hidden"
-          onClick={() => setOpen(true)}
-          aria-label="Open menu"
-          aria-expanded={open}
-          aria-controls="preland-mobile-menu"
-        >
-          <Menu className="h-6 w-6" aria-hidden="true" />
-        </button>
-
-        <Link
-          to={linkTo(routes.preland)}
-          className="flex items-center gap-2.5"
-          aria-label={`${prelandBrand.name} — home`}
-        >
-          <span
-            className="grid h-9 w-9 place-items-center bg-news-accent text-sm font-black tracking-tight text-white"
-            aria-hidden="true"
+      <div className="bg-[#bd041f] text-white">
+        <div className="mx-auto flex flex-wrap items-center justify-between gap-4 px-4 py-3 sm:px-6">
+          <Link
+            to={linkTo(routes.preland)}
+            className="flex items-center gap-3 font-serif text-lg font-bold tracking-tight"
+            aria-label={`${prelandBrand.name} — home`}
           >
-            {prelandBrand.monogram}
-          </span>
-          <span className="leading-none">
-            <span className="block font-serif text-lg font-bold tracking-tight text-news-ink sm:text-2xl">
-              {prelandBrand.name}
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm bg-white text-black text-sm font-black">
+              BBC
             </span>
-            <span className="mt-1 hidden text-[11px] tracking-[0.18em] text-news-muted uppercase sm:block">
-              {prelandBrand.tagline}
-            </span>
-          </span>
-        </Link>
+            <span className="hidden sm:block">News</span>
+          </Link>
 
-        <button
-          type="button"
-          className="grid h-9 w-9 place-items-center rounded-full border border-news-line text-news-ink transition hover:bg-paper-alt"
-          aria-label={prelandTopBar.searchLabel}
-        >
-          <Search className="h-4 w-4" aria-hidden="true" />
-        </button>
+          <button
+            type="button"
+            className="inline-flex items-center gap-2 rounded border border-white/25 bg-white/10 px-3 py-2 text-sm text-white transition hover:bg-white/20 sm:hidden"
+            onClick={() => setOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={open}
+            aria-controls="preland-mobile-menu"
+          >
+            <Menu className="h-4 w-4" aria-hidden="true" />
+            Menu
+          </button>
+
+          <nav aria-label="Main navigation" className="hidden flex-wrap items-center gap-6 text-sm font-semibold sm:flex">
+            {prelandNav.map((item) => (
+              <a key={item.label} href={item.href} className="transition hover:text-white/80">
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          <button
+            type="button"
+            className="hidden items-center gap-2 rounded border border-white/25 bg-white/10 px-3 py-2 text-sm text-white transition hover:bg-white/20 sm:inline-flex"
+            aria-label={prelandTopBar.searchLabel}
+          >
+            <Search className="h-4 w-4" aria-hidden="true" />
+            {prelandTopBar.searchLabel}
+          </button>
+        </div>
       </div>
 
-      {/* Основная навигация — desktop */}
-      <nav aria-label="Main navigation" className="hidden border-t border-news-line md:block">
-        <ul className="mx-auto flex max-w-[1200px] items-center gap-6 px-6 text-sm font-semibold">
-          {prelandNav.map((item, index) => (
-            <li key={item.label}>
-              <a
-                href={item.href}
-                className={cn(
-                  'inline-block border-b-[3px] py-3 transition',
-                  index === 1
-                    ? 'border-news-accent text-news-ink'
-                    : 'border-transparent text-news-muted hover:text-news-ink',
-                )}
-                aria-current={index === 1 ? 'page' : undefined}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      {/* Подрубрики — desktop */}
-      <div className="hidden border-t border-news-line bg-paper-alt md:block">
-        <ul className="mx-auto flex max-w-[1200px] items-center gap-5 px-6 py-2 text-xs text-news-muted">
+      <div className="hidden border-t border-white/10 bg-[#96030f]/10 text-white/80 sm:block">
+        <div className="mx-auto flex flex-wrap gap-4 px-4 py-2 sm:px-6">
           {prelandSubNav.map((item) => (
-            <li key={item.label}>
-              <a href={item.href} className="hover:text-news-ink">
-                {item.label}
-              </a>
-            </li>
+            <a key={item.label} href={item.href} className="transition hover:text-white">
+              {item.label}
+            </a>
           ))}
-        </ul>
+        </div>
       </div>
 
       {/* Мобильное меню */}

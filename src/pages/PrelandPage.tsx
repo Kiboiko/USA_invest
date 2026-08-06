@@ -17,7 +17,7 @@ export default function PrelandPage() {
   useSeo(prelandSeo);
 
   return (
-    <div className="min-h-screen bg-paper">
+    <div className="min-h-screen bg-paper-alt">
       <a href="#article" className="skip-link">
         Skip to content
       </a>

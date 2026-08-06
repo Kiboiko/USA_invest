@@ -4,7 +4,6 @@ export interface LeadFormValues {
   firstName: string;
   lastName: string;
   email: string;
-  country: string;
   phone: string;
   experience: string;
 }
@@ -14,12 +13,14 @@ export type LeadFormErrors = Partial<Record<keyof LeadFormValues, string>>;
 /** Намеренно мягкая проверка email: формат, а не существование адреса. */
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
 
-/**
- * Телефон проверяется только по длине цифр (7–15) — как в E.164.
- * Жёсткая проверка формата по странам не делается сознательно.
- */
-function countDigits(value: string): number {
-  return (value.match(/\d/g) ?? []).length;
+function normalizePhone(value: string): string {
+  const digits = value.replace(/\D/g, '');
+  return digits.startsWith('1') ? digits.slice(1) : digits;
+}
+
+function isValidUsPhone(value: string): boolean {
+  const digits = normalizePhone(value);
+  return digits.length === 10;
 }
 
 export function validateLeadForm(values: LeadFormValues): LeadFormErrors {
@@ -38,12 +39,9 @@ export function validateLeadForm(values: LeadFormValues): LeadFormErrors {
   if (!email) errors.email = e.emailRequired;
   else if (!EMAIL_RE.test(email)) errors.email = e.emailInvalid;
 
-  if (!values.country) errors.country = e.countryRequired;
-
   const phone = values.phone.trim();
-  const digits = countDigits(phone);
-  if (!phone || digits === 0) errors.phone = e.phoneRequired;
-  else if (digits < 7 || digits > 15) errors.phone = e.phoneInvalid;
+  if (!phone) errors.phone = e.phoneRequired;
+  else if (!isValidUsPhone(phone)) errors.phone = e.phoneInvalid;
 
   if (!values.experience) errors.experience = e.experienceRequired;
 

@@ -1,5 +1,4 @@
 import { formConfig } from '@/config/site';
-import { findCountry } from '@/data/countries';
 import type { LeadFormValues } from '@/lib/validation';
 import { emptyUtm, readContext, type UtmParams } from '@/lib/tracking';
 
@@ -25,7 +24,6 @@ export type SubmitResult =
 
 export function buildPayload(values: LeadFormValues, utm: UtmParams): LeadPayload {
   const context = readContext();
-  const country = findCountry(values.country);
 
   return {
     ...emptyUtm(),
@@ -35,8 +33,8 @@ export function buildPayload(values: LeadFormValues, utm: UtmParams): LeadPayloa
     firstName: values.firstName.trim(),
     lastName: values.lastName.trim(),
     email: values.email.trim(),
-    country: country?.name ?? values.country,
-    countryCode: values.country,
+    country: 'United States',
+    countryCode: 'US',
     phone: values.phone.trim(),
     experience: values.experience,
     ...context,

@@ -244,8 +244,7 @@ export const formContent = {
     firstName: { label: 'First Name', placeholder: 'First Name' },
     lastName: { label: 'Last Name', placeholder: 'Last Name' },
     email: { label: 'Email Address', placeholder: 'Email Address' },
-    country: { label: 'Country', placeholder: 'Select your country' },
-    phone: { label: 'Phone Number', placeholder: 'Phone Number' },
+    phone: { label: 'Phone Number', placeholder: '(555) 123-4567' },
     experience: {
       label: 'Do you have investment experience?',
       options: [
@@ -274,7 +273,6 @@ export const formContent = {
     lastNameShort: 'Last name must be at least 2 characters',
     emailRequired: 'Please enter your email address',
     emailInvalid: 'Please enter a valid email address',
-    countryRequired: 'Please select your country',
     phoneRequired: 'Please enter your phone number',
     phoneInvalid: 'Please enter a valid phone number',
     experienceRequired: 'Please select an option',

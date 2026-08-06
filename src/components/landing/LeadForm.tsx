@@ -1,6 +1,5 @@
-import { useId, useMemo, useState, type ChangeEvent, type FormEvent } from 'react';
+import { useId, useState, type ChangeEvent, type FormEvent } from 'react';
 import { CheckCircle2, Lock, Mail, Phone, ShieldCheck, User } from 'lucide-react';
-import { countries, findCountry } from '@/data/countries';
 import { formContent } from '@/data/landing';
 import { useUtm } from '@/hooks/useUtm';
 import { buildPayload, submitLead } from '@/lib/submitLead';
@@ -12,7 +11,6 @@ const emptyValues: LeadFormValues = {
   firstName: '',
   lastName: '',
   email: '',
-  country: '',
   phone: '',
   experience: '',
 };
@@ -30,12 +28,21 @@ export function LeadForm() {
   const [status, setStatus] = useState<Status>('idle');
   const [serverError, setServerError] = useState('');
 
-  const dial = useMemo(() => findCountry(values.country)?.dial ?? '', [values.country]);
+  const formatUsPhone = (value: string) => {
+    const digits = value.replace(/\D/g, '').replace(/^1/, '').slice(0, 10);
+    if (!digits) return '';
+    if (digits.length < 4) return `(${digits}`;
+    if (digits.length < 7) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+  };
 
   const field = (name: keyof LeadFormValues) => ({
     value: values[name],
     onChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-      const next = event.target.value;
+      let next = event.target.value;
+      if (name === 'phone') {
+        next = formatUsPhone(next);
+      }
       setValues((prev) => ({ ...prev, [name]: next }));
       // Ошибку убираем сразу, как только пользователь начал править поле
       setErrors((prev) => (prev[name] ? { ...prev, [name]: undefined } : prev));
@@ -185,59 +192,25 @@ export function LeadForm() {
           <FieldError id={`${uid}-email-error`} message={errors.email} />
         </div>
 
-        {/* Country */}
-        <div>
-          <label htmlFor={`${uid}-country`} className="sr-only">
-            {formContent.fields.country.label}
-          </label>
-          <select
-            id={`${uid}-country`}
-            autoComplete="country"
-            className={cn(
-              inputBase,
-              'appearance-none px-4',
-              borderFor('country'),
-              values.country ? 'text-white' : 'text-fg-muted/70',
-            )}
-            {...field('country')}
-          >
-            <option value="">{formContent.fields.country.placeholder}</option>
-            {countries.map((country) => (
-              <option key={country.code} value={country.code} className="bg-ink-700 text-white">
-                {country.name}
-              </option>
-            ))}
-          </select>
-          <FieldError id={`${uid}-country-error`} message={errors.country} />
-        </div>
-
-        {/* Phone: код страны подставляется из выбранной страны */}
+        {/* Phone */}
         <div>
           <label htmlFor={`${uid}-phone`} className="sr-only">
             {formContent.fields.phone.label}
           </label>
-          <div className="flex gap-2">
-            <span
-              className="grid min-w-[74px] shrink-0 place-items-center rounded-lg border border-ink-500 bg-ink-600/60 px-3 text-[15px] font-semibold text-fg-muted"
+          <div className="relative">
+            <Phone
+              className="pointer-events-none absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-fg-muted"
               aria-hidden="true"
-            >
-              {dial || '+'}
-            </span>
-            <div className="relative min-w-0 flex-1">
-              <Phone
-                className="pointer-events-none absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-fg-muted"
-                aria-hidden="true"
-              />
-              <input
-                id={`${uid}-phone`}
-                type="tel"
-                autoComplete="tel"
-                inputMode="tel"
-                placeholder={formContent.fields.phone.placeholder}
-                className={cn(inputBase, 'pl-10', borderFor('phone'))}
-                {...field('phone')}
-              />
-            </div>
+            />
+            <input
+              id={`${uid}-phone`}
+              type="tel"
+              autoComplete="tel"
+              inputMode="tel"
+              placeholder={formContent.fields.phone.placeholder}
+              className={cn(inputBase, 'pl-10', borderFor('phone'))}
+              {...field('phone')}
+            />
           </div>
           <FieldError id={`${uid}-phone-error`} message={errors.phone} />
         </div>

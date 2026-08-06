@@ -18,7 +18,7 @@
 var CONFIG = {
   // ID таблицы из её URL: /spreadsheets/d/<ID>/edit
   // Пусто = использовать таблицу, к которой привязан скрипт.
-  SPREADSHEET_ID: '',
+  SPREADSHEET_ID: '1PWeZSQxKKBASb3b-vWZ6VZl-LPHfOAdDlMXAT9bKU_A',
 
   // Имя листа. Если листа нет, он будет создан с заголовками.
   SHEET_NAME: 'Leads',

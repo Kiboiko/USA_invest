@@ -1,48 +1,66 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { routes } from '@/config/site';
-import { mostRead, newsletterCard, sidebarPromo } from '@/data/preland';
+import { topStories, moreToExplore, newsletterCard, sidebarPromo } from '@/data/preland';
 import { useLinkWithQuery } from '@/hooks/useUtm';
 import { trackEvent } from '@/components/common/Analytics';
 
 /**
- * Боковая колонка: Most Read, рекламный промо-блок с CTA и подписка.
- * На мобильном колонка переносится под статью (см. PrelandPage).
+ * Боковая колонка: top stories, more to explore, CTA и подписка.
+ * На мобильном колонка переносится под статьёй (см. PrelandPage).
  */
 export function Sidebar() {
   const linkTo = useLinkWithQuery();
 
   return (
     <aside className="space-y-8" aria-label="Sidebar">
-      {/* Most read */}
-      <section aria-labelledby="most-read-title">
-        <h2
-          id="most-read-title"
-          className="border-b-2 border-news-ink pb-2 text-sm font-bold tracking-[0.14em] text-news-ink uppercase"
-        >
-          {mostRead.title}
-        </h2>
-        <ol className="mt-4 space-y-4">
-          {mostRead.items.map((item, index) => (
-            <li key={item} className="flex gap-3 border-b border-news-line pb-4 last:border-b-0">
-              <span
-                className="font-serif text-2xl leading-none font-bold text-news-line"
-                aria-hidden="true"
-              >
-                {index + 1}
-              </span>
-              <a
-                href="#"
-                className="font-serif text-[15px] leading-snug font-semibold text-news-ink hover:text-news-accent"
-              >
-                {item}
-              </a>
-            </li>
+      <section aria-labelledby="top-stories-title">
+        <div className="flex items-center justify-between gap-4">
+          <h2
+            id="top-stories-title"
+            className="text-lg font-bold uppercase tracking-[0.2em] text-news-ink"
+          >
+            Top stories
+          </h2>
+        </div>
+        <div className="mt-4 space-y-4 rounded-xl border border-news-line bg-paper-alt p-4">
+          {topStories.map((story, index) => (
+            <article key={story.title} className="rounded-lg bg-white p-4 shadow-sm">
+              <div className="flex items-start gap-3">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#d9292f] text-sm font-bold text-white">
+                  {index + 1}
+                </span>
+                <div>
+                  <p className="text-xs uppercase tracking-[0.18em] text-[#007d79]">Live</p>
+                  <h3 className="mt-1 text-sm font-semibold text-news-ink">{story.title}</h3>
+                  <p className="mt-2 text-xs text-news-muted">{story.meta}</p>
+                </div>
+              </div>
+            </article>
           ))}
-        </ol>
+        </div>
       </section>
 
-      {/* Промо с CTA на landing */}
+      <section aria-labelledby="more-explore-title">
+        <h2
+          id="more-explore-title"
+          className="text-lg font-bold uppercase tracking-[0.2em] text-news-ink"
+        >
+          More to explore
+        </h2>
+        <div className="mt-4 grid gap-4">
+          {moreToExplore.map((item) => (
+            <article key={item.title} className="overflow-hidden rounded-xl border border-news-line bg-white shadow-sm">
+              <img src={item.image} alt={item.imageAlt} className="h-24 w-full object-cover" />
+              <div className="p-3">
+                <p className="text-[11px] uppercase tracking-[0.18em] text-news-accent">{item.category}</p>
+                <h3 className="mt-2 text-sm font-semibold text-news-ink">{item.title}</h3>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section
         aria-labelledby="sidebar-promo-title"
         className="rounded-lg border border-news-line bg-paper-alt p-5"
@@ -68,7 +86,6 @@ export function Sidebar() {
         <p className="mt-3 text-[11px] text-news-muted">{sidebarPromo.note}</p>
       </section>
 
-      {/* Подписка (демо, без backend) */}
       <section
         id="newsletter"
         aria-labelledby="newsletter-title"
