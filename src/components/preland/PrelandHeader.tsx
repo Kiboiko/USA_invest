@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, Search, X } from 'lucide-react';
+import { Menu, Search, UserRound, X } from 'lucide-react';
 import { prelandBrand, routes } from '@/config/site';
 import { prelandNav, prelandSubNav, prelandTopBar } from '@/data/preland';
 import { useLinkWithQuery } from '@/hooks/useUtm';
@@ -37,65 +37,38 @@ export function PrelandHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40">
-      <div className="bg-[#141414] text-white">
-        <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-3 px-4 py-2 text-[11px] uppercase tracking-[0.24em] sm:px-6">
-          <div className="flex items-center gap-3 text-[10px] font-black tracking-[0.32em]">
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-sm bg-white text-black">BBC</span>
-            {prelandTopBar.location}
+    <header className="sticky top-0 z-40 bg-white">
+      <div className="border-b border-black/70">
+        <div className="mx-auto flex h-[76px] max-w-[1200px] items-center justify-between px-4 sm:px-6">
+          <div className="flex items-center gap-3">
+            <button type="button" onClick={() => setOpen(true)} aria-label="Open menu" aria-expanded={open} aria-controls="preland-mobile-menu" className="grid h-10 w-10 place-items-center text-black">
+              <Menu className="h-8 w-8" aria-hidden="true" />
+            </button>
+            <button type="button" aria-label={prelandTopBar.searchLabel} className="hidden grid h-10 w-10 place-items-center text-black sm:grid">
+              <Search className="h-7 w-7" aria-hidden="true" />
+            </button>
           </div>
-          <div className="hidden flex-wrap items-center gap-4 sm:flex">
-            {prelandTopBar.links.map((link) => (
-              <a key={link.label} href={link.href} className="text-white/70 transition hover:text-white">
-                {link.label}
-              </a>
-            ))}
-          </div>
-          <span className="hidden text-white/70 sm:inline">{formatToday()}</span>
+
+          <Link to={linkTo(routes.preland)} aria-label={`${prelandBrand.name} — home`} className="flex items-center gap-1">
+            {['B', 'B', 'C'].map((letter, index) => <span key={`${letter}-${index}`} className="grid h-11 w-11 place-items-center bg-black text-3xl font-black text-white">{letter}</span>)}
+          </Link>
+
+          <button type="button" aria-label="Sign in" className="grid h-10 w-10 place-items-center text-black">
+            <UserRound className="h-7 w-7" aria-hidden="true" />
+          </button>
         </div>
       </div>
 
-      <div className="bg-[#bd041f] text-white">
-        <div className="mx-auto flex flex-wrap items-center justify-between gap-4 px-4 py-3 sm:px-6">
-          <Link
-            to={linkTo(routes.preland)}
-            className="flex items-center gap-3 font-serif text-lg font-bold tracking-tight"
-            aria-label={`${prelandBrand.name} — home`}
-          >
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm bg-white text-black text-sm font-black">
-              BBC
-            </span>
-            <span className="hidden sm:block">News</span>
-          </Link>
-
-          <button
-            type="button"
-            className="inline-flex items-center gap-2 rounded border border-white/25 bg-white/10 px-3 py-2 text-sm text-white transition hover:bg-white/20 sm:hidden"
-            onClick={() => setOpen(true)}
-            aria-label="Open menu"
-            aria-expanded={open}
-            aria-controls="preland-mobile-menu"
-          >
-            <Menu className="h-4 w-4" aria-hidden="true" />
-            Menu
-          </button>
-
-          <nav aria-label="Main navigation" className="hidden flex-wrap items-center gap-6 text-sm font-semibold sm:flex">
-            {prelandNav.map((item) => (
-              <a key={item.label} href={item.href} className="transition hover:text-white/80">
-                {item.label}
-              </a>
-            ))}
+      <div className="border-b border-news-line bg-[#f4f4f4]">
+        <div className="mx-auto flex max-w-[1200px] items-center justify-between gap-4 px-4 py-3 sm:px-6">
+          <nav aria-label="Main navigation" className="hidden flex-wrap items-center gap-6 text-sm font-semibold text-news-ink sm:flex">
+            {prelandNav.map((item) => <a key={item.label} href={item.href} className="transition hover:text-news-accent">{item.label}</a>)}
           </nav>
-
-          <button
-            type="button"
-            className="hidden items-center gap-2 rounded border border-white/25 bg-white/10 px-3 py-2 text-sm text-white transition hover:bg-white/20 sm:inline-flex"
-            aria-label={prelandTopBar.searchLabel}
-          >
-            <Search className="h-4 w-4" aria-hidden="true" />
-            {prelandTopBar.searchLabel}
+          <span className="text-xs font-bold uppercase tracking-[0.18em] text-news-muted sm:hidden">BBC News Services</span>
+          <button type="button" className="inline-flex items-center gap-2 rounded border border-black/15 bg-white px-3 py-2 text-sm font-semibold text-news-ink transition hover:bg-black hover:text-white sm:hidden" onClick={() => setOpen(true)} aria-label="Open menu">
+            <Menu className="h-4 w-4" aria-hidden="true" /> Menu
           </button>
+          <span className="hidden text-xs text-news-muted sm:inline">{formatToday()}</span>
         </div>
       </div>
 

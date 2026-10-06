@@ -1,6 +1,9 @@
 import { hero } from '@/data/landing';
 import { Icon } from '@/components/common/Icon';
 import { LeadForm } from '@/components/landing/LeadForm';
+import { LocalVideo } from '@/components/common/LocalVideo';
+
+const heroVideoSrc = '/videos/finvoryx-landing.mp4';
 
 /**
  * HERO.
@@ -17,15 +20,6 @@ export function Hero() {
       aria-labelledby="hero-title"
       className="relative overflow-hidden rounded-2xl border border-ink-500/70 bg-ink-800"
     >
-      {/* Фоновая иллюстрация платформы на desktop. Декоративная — alt="" */}
-      <img
-        src={hero.image}
-        alt=""
-        aria-hidden="true"
-        className="pointer-events-none absolute top-[46%] right-[25%] hidden w-[38%] max-w-[500px] -translate-y-1/2 opacity-75 lg:block"
-        loading="eager"
-        decoding="async"
-      />
       <div
         className="pointer-events-none absolute inset-0 bg-linear-to-r from-ink-800 via-ink-800/55 to-ink-800/85"
         aria-hidden="true"
@@ -45,15 +39,11 @@ export function Hero() {
             {hero.subtitle}
           </p>
 
-          {/* Иллюстрация в потоке — только на мобильном/планшете */}
-          <img
-            src={hero.image}
-            alt={hero.imageAlt}
-            width={720}
-            height={500}
-            loading="lazy"
-            decoding="async"
-            className="mt-8 w-full rounded-xl lg:hidden"
+          <LocalVideo
+            src={heroVideoSrc}
+            title="Finvoryx Capital platform preview"
+            poster="/images/warren-buffett-client.png"
+            className="mt-8 w-full max-w-[560px]"
           />
         </div>
 

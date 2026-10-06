@@ -1,5 +1,8 @@
 import { Bookmark, Facebook, Link2, Linkedin, Twitter } from 'lucide-react';
 import { article } from '@/data/preland';
+import { LocalVideo } from '@/components/common/LocalVideo';
+
+const articleVideoSrc = '/videos/finvoryx-platform.mp4';
 
 function formatDate(iso: string): string {
   const date = new Date(iso);
@@ -96,13 +99,11 @@ export function ArticleHead() {
       </p>
 
       <figure className="mt-6">
-        <img
-          src={article.heroImage}
-          alt={article.heroImageAlt}
-          width={1200}
-          height={675}
-          loading="eager"
-          className="w-full rounded-lg border border-news-line bg-paper-alt"
+        <LocalVideo
+          src={articleVideoSrc}
+          title={article.heroImageAlt}
+          poster="/images/warren-buffett-client.png"
+          className="rounded-lg border-news-line bg-paper-alt"
         />
         {article.heroCaption ? (
           <figcaption className="mt-2 text-xs leading-relaxed text-news-muted">

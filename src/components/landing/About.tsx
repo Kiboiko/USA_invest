@@ -1,6 +1,8 @@
 import { about } from '@/data/landing';
 import { Panel } from '@/components/landing/Panel';
 
+const aboutImageUrl = '/images/warren-buffett-client.png';
+
 /** Секция About: изображение слева, текст справа (на мобильном — друг под другом). */
 export function About() {
   return (
@@ -8,7 +10,7 @@ export function About() {
       <div className="mt-8 grid gap-6 md:grid-cols-[260px_minmax(0,1fr)] md:gap-8 lg:grid-cols-[300px_minmax(0,1fr)]">
         <figure className="m-0">
           <img
-            src={about.image}
+            src={aboutImageUrl}
             alt={about.imageAlt}
             width={600}
             height={600}

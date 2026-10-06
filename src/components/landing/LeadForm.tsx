@@ -1,4 +1,4 @@
-import { useId, useState, type ChangeEvent, type FormEvent } from 'react';
+import { useId, useMemo, useState, type ChangeEvent, type FormEvent } from 'react';
 import { CheckCircle2, Lock, Mail, Phone, ShieldCheck, User } from 'lucide-react';
 import { formContent } from '@/data/landing';
 import { useUtm } from '@/hooks/useUtm';
@@ -12,10 +12,15 @@ const emptyValues: LeadFormValues = {
   lastName: '',
   email: '',
   phone: '',
-  experience: '',
 };
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
+
+/**
+ * Поля, от которых зависит появление кнопки отправки: пока имя, фамилия,
+ * email и телефон не пройдут проверку, кнопки на форме нет.
+ */
+const gateFields = ['firstName', 'lastName', 'email', 'phone'] as const;
 
 const inputBase =
   'w-full rounded-lg border bg-ink-600/60 py-3.5 pr-4 text-[15px] text-white placeholder:text-fg-muted/70 transition outline-none focus:border-accent-500';
@@ -27,6 +32,10 @@ export function LeadForm() {
   const [errors, setErrors] = useState<LeadFormErrors>({});
   const [status, setStatus] = useState<Status>('idle');
   const [serverError, setServerError] = useState('');
+
+  // Проверка на каждый ввод — нужна и для гейта кнопки, и для подсветки по blur
+  const liveErrors = useMemo(() => validateLeadForm(values), [values]);
+  const canSubmit = gateFields.every((name) => !liveErrors[name]);
 
   const formatUsPhone = (value: string) => {
     const digits = value.replace(/\D/g, '').replace(/^1/, '').slice(0, 10);
@@ -46,6 +55,15 @@ export function LeadForm() {
       setValues((prev) => ({ ...prev, [name]: next }));
       // Ошибку убираем сразу, как только пользователь начал править поле
       setErrors((prev) => (prev[name] ? { ...prev, [name]: undefined } : prev));
+    },
+    /**
+     * Кнопки может не быть на экране, поэтому объясняем проблему сразу при
+     * уходе из поля. Пустое поле не подсвечиваем — про него говорит подсказка
+     * под формой, ругаться на ещё не заполненное поле незачем.
+     */
+    onBlur: () => {
+      if (!values[name].trim()) return;
+      setErrors((prev) => ({ ...prev, [name]: liveErrors[name] }));
     },
     'aria-invalid': Boolean(errors[name]),
     'aria-describedby': errors[name] ? `${uid}-${name}-error` : undefined,
@@ -75,6 +93,10 @@ export function LeadForm() {
     if (result.ok) {
       setStatus('success');
       trackEvent('lead_form_success', { mode: result.mode });
+      /* Стандартное событие Lead шлёт сам сайт, пикселем. Серверная отправка
+         из Apps Script (sendLeadEvent в Code.gs) отключена: держать обе
+         нельзя — конверсии удвоятся. */
+      trackEvent('Lead');
       return;
     }
 
@@ -214,49 +236,6 @@ export function LeadForm() {
           </div>
           <FieldError id={`${uid}-phone-error`} message={errors.phone} />
         </div>
-
-        {/* Investment experience */}
-        <fieldset className="border-0 p-0">
-          <legend className="mb-2 text-sm text-fg-muted">
-            {formContent.fields.experience.label}
-          </legend>
-          <div className="grid grid-cols-2 gap-3">
-            {formContent.fields.experience.options.map((option, optionIndex) => {
-              const checked = values.experience === option.value;
-              return (
-                <label
-                  key={option.value}
-                  className={cn(
-                    'cursor-pointer rounded-lg border px-4 py-3 text-center text-[15px] font-semibold transition',
-                    checked
-                      ? 'border-accent-500 bg-accent-500/15 text-white'
-                      : 'border-ink-500 bg-ink-600/60 text-fg-muted hover:border-fg-muted/50',
-                    errors.experience && !checked && 'border-red-400/50',
-                  )}
-                >
-                  <input
-                    type="radio"
-                    /* id только у первой кнопки — на неё ставится фокус при ошибке */
-                    id={optionIndex === 0 ? `${uid}-experience` : undefined}
-                    name={`${uid}-experience`}
-                    value={option.value}
-                    checked={checked}
-                    onChange={() => {
-                      setValues((prev) => ({ ...prev, experience: option.value }));
-                      setErrors((prev) => ({ ...prev, experience: undefined }));
-                    }}
-                    className="sr-only"
-                    aria-describedby={
-                      errors.experience ? `${uid}-experience-error` : undefined
-                    }
-                  />
-                  {option.label}
-                </label>
-              );
-            })}
-          </div>
-          <FieldError id={`${uid}-experience-error`} message={errors.experience} />
-        </fieldset>
       </div>
 
       <p className="mt-4 text-xs leading-relaxed text-fg-muted/85">{formContent.consent}</p>
@@ -270,18 +249,27 @@ export function LeadForm() {
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={status === 'submitting'}
-        className={cn(
-          'mt-4 w-full rounded-lg px-6 py-4 text-base font-extrabold tracking-wide uppercase transition',
-          'bg-linear-to-r from-accent-500 to-accent-600 text-ink-900 shadow-lg shadow-accent-700/20',
-          'hover:from-accent-400 hover:to-accent-500',
-          'disabled:cursor-not-allowed disabled:opacity-60',
-        )}
-      >
-        {status === 'submitting' ? formContent.submitting : formContent.submit}
-      </button>
+      {canSubmit ? (
+        <button
+          type="submit"
+          disabled={status === 'submitting'}
+          className={cn(
+            'mt-4 w-full rounded-lg px-6 py-4 text-base font-extrabold tracking-wide uppercase transition',
+            'bg-linear-to-r from-accent-500 to-accent-600 text-ink-900 shadow-lg shadow-accent-700/20',
+            'hover:from-accent-400 hover:to-accent-500',
+            'disabled:cursor-not-allowed disabled:opacity-60',
+          )}
+        >
+          {status === 'submitting' ? formContent.submitting : formContent.submit}
+        </button>
+      ) : (
+        <p
+          role="status"
+          className="mt-4 rounded-lg border border-dashed border-ink-500 px-6 py-4 text-center text-sm text-fg-muted"
+        >
+          {formContent.submitHint}
+        </p>
+      )}
 
       <p className="mt-4 flex items-start gap-2 text-xs leading-relaxed text-fg-muted">
         <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />

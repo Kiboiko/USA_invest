@@ -12,7 +12,6 @@ export interface LeadPayload extends UtmParams {
   country: string;
   countryCode: string;
   phone: string;
-  experience: string;
   pageUrl: string;
   referrer: string;
   userAgent: string;
@@ -36,7 +35,6 @@ export function buildPayload(values: LeadFormValues, utm: UtmParams): LeadPayloa
     country: 'United States',
     countryCode: 'US',
     phone: values.phone.trim(),
-    experience: values.experience,
     ...context,
   };
 }

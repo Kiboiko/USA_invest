@@ -1,8 +1,9 @@
 node_modules
 dist
+dist-site
 dist-ssr
 .env
-.env.local
+.env.*
 *.local
 .DS_Store
 *.log
@@ -10,3 +11,7 @@ dist-ssr
 
 # TypeScript build info
 *.tsbuildinfo
+
+# Архив для заказчика (npm run build:archive)
+archive
+*.zip

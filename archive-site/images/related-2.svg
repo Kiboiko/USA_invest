@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360" role="img"
+     aria-label="Abstract illustration of connected data nodes">
+  <rect width="640" height="360" fill="#e9edf2"/>
+  <g stroke="#101f33" stroke-width="2" opacity="0.35">
+    <line x1="120" y1="120" x2="280" y2="200"/>
+    <line x1="280" y1="200" x2="430" y2="110"/>
+    <line x1="280" y1="200" x2="420" y2="280"/>
+    <line x1="430" y1="110" x2="540" y2="180"/>
+    <line x1="420" y1="280" x2="540" y2="180"/>
+    <line x1="120" y1="120" x2="180" y2="270"/>
+    <line x1="180" y1="270" x2="280" y2="200"/>
+  </g>
+  <g fill="#101f33">
+    <circle cx="120" cy="120" r="14"/>
+    <circle cx="280" cy="200" r="20"/>
+    <circle cx="430" cy="110" r="14"/>
+    <circle cx="420" cy="280" r="14"/>
+    <circle cx="180" cy="270" r="10"/>
+  </g>
+  <circle cx="540" cy="180" r="18" fill="#b8121a"/>
+</svg>

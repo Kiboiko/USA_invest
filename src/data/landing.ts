@@ -153,21 +153,21 @@ export const testimonials = {
   items: [
     {
       text: 'Sample feedback text — replace with a real quote. Describes the setup experience and the support received.',
-      name: 'Client name',
+      name: 'Marcus Whitfield',
       location: 'USA',
       countryCode: 'US',
       rating: 5,
     },
     {
       text: 'Sample feedback text — replace with a real quote. Describes how clear the onboarding process was.',
-      name: 'Client name',
+      name: 'Lukas Brandt',
       location: 'Germany',
       countryCode: 'DE',
       rating: 5,
     },
     {
       text: 'Sample feedback text — replace with a real quote. Describes the market information available in the platform.',
-      name: 'Client name',
+      name: 'Emily Hartley',
       location: 'UK',
       countryCode: 'GB',
       rating: 5,
@@ -202,7 +202,7 @@ export const faq = {
     {
       question: 'Do I need prior experience?',
       answer:
-        'No. The setup process is the same for everyone, and the form asks about your experience only so that support can be adapted to your level.',
+        'No. The setup process is the same for everyone, and your specialist adapts the guidance to your level after registration.',
     },
   ],
   sideCard: {
@@ -232,8 +232,7 @@ export const landingFooter = {
       links: ['Terms & Conditions', 'Privacy Policy', 'Cookie Policy', 'Risk Disclosure'],
     },
   ],
-  disclaimer:
-    'Risk warning: trading and investing involve a high level of risk and may not be suitable for all investors. You may lose some or all of your invested capital. Past performance is not a reliable indicator of future results. No profit, income or specific outcome is promised or guaranteed. Please ensure you fully understand the risks involved and seek independent advice if necessary.',
+  disclaimer: '',
   copyright: `© ${new Date().getFullYear()} ${landingBrand.name}. All rights reserved.`,
 };
 
@@ -245,17 +244,12 @@ export const formContent = {
     lastName: { label: 'Last Name', placeholder: 'Last Name' },
     email: { label: 'Email Address', placeholder: 'Email Address' },
     phone: { label: 'Phone Number', placeholder: '(555) 123-4567' },
-    experience: {
-      label: 'Do you have investment experience?',
-      options: [
-        { value: 'yes', label: 'Yes' },
-        { value: 'no', label: 'No' },
-      ],
-    },
   },
   consent: `By submitting this form, you agree to be contacted by ${landingBrand.name} regarding your account setup, platform access, and related services.`,
   submit: 'Create account',
   submitting: 'Sending…',
+  /** Заменяет кнопку, пока имя, email и телефон не заполнены корректно */
+  submitHint: 'Enter your name, email and phone number to continue',
   privacyNote: 'We respect your privacy and will never share your information.',
   success: {
     title: 'Thank you — your request has been received.',
@@ -275,6 +269,5 @@ export const formContent = {
     emailInvalid: 'Please enter a valid email address',
     phoneRequired: 'Please enter your phone number',
     phoneInvalid: 'Please enter a valid phone number',
-    experienceRequired: 'Please select an option',
   },
 };

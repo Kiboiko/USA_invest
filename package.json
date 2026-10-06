@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:site": "tsc -b && vite build --mode site --outDir dist-site",
+    "build:archive": "vite build --config vite.archive.config.ts && node scripts/build-archive.mjs",
+    "build:archive:site": "vite build --config vite.archive.config.ts --mode site --outDir archive-site && node scripts/build-archive.mjs archive-site",
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit"
   },

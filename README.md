@@ -27,7 +27,22 @@ npm run dev             # http://localhost:5173/preland
 npm run build       # tsc -b && vite build
 npm run preview     # предпросмотр сборки
 npm run typecheck   # только проверка типов
+npm run build:site  # сборка второго экземпляра (finvoryx.site) в dist-site
+npm run build:archive  # автономный архив в archive/ (Keitaro, открытие с диска)
 ```
+
+## Два экземпляра на одном сервере
+
+Из одного кода собираются два сайта — различаются только endpoint таблицы:
+
+| Домен | Env-файл | Сборка | Каталог на сервере |
+| --- | --- | --- | --- |
+| fynvoryx.store | `.env` | `npm run build` → `dist/` | `/var/www/usa-invest` |
+| finvoryx.site | `.env.site` | `npm run build:site` → `dist-site/` | `/var/www/finvoryx-site` |
+
+У каждого свой server-блок nginx, свой сертификат и своя таблица. Чтобы сайты
+разошлись по контенту, копируйте не сборку, а `src/data/*.ts` в отдельную ветку
+или проект — сейчас тексты у них общие.
 
 ## Где что менять
 

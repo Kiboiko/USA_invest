@@ -45,9 +45,11 @@ export function LandingFooter() {
           ))}
         </div>
 
-        <p className="mt-10 border-t border-ink-500/70 pt-6 text-xs leading-relaxed text-fg-muted/70">
-          {landingFooter.disclaimer}
-        </p>
+        {landingFooter.disclaimer ? (
+          <p className="mt-10 border-t border-ink-500/70 pt-6 text-xs leading-relaxed text-fg-muted/70">
+            {landingFooter.disclaimer}
+          </p>
+        ) : null}
         <p className="mt-3 text-xs text-fg-muted/70">{landingFooter.copyright}</p>
       </div>
     </footer>

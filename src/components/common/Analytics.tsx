@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { analyticsConfig } from '@/config/site';
 
 /**
@@ -6,6 +7,11 @@ import { analyticsConfig } from '@/config/site';
  * Пустой ID = ни одного внешнего скрипта на странице.
  */
 export function Analytics() {
+  const { pathname } = useLocation();
+  // Путь, для которого PageView уже отправлен. Стартовый PageView шлёт сам
+  // инлайн-сниппет пикселя, поэтому первый маршрут здесь считается учтённым.
+  const trackedPath = useRef(pathname);
+
   useEffect(() => {
     const { gaMeasurementId } = analyticsConfig;
     if (!gaMeasurementId) return;
@@ -30,7 +36,9 @@ export function Analytics() {
 
   useEffect(() => {
     const { metaPixelId } = analyticsConfig;
-    if (!metaPixelId) return;
+    // Несколько пикселей задаются через запятую: VITE_META_PIXEL_ID=111,222
+    const pixelIds = metaPixelId.split(',').map((id) => id.trim()).filter(Boolean);
+    if (pixelIds.length === 0) return;
     if (document.getElementById('meta-pixel')) return;
 
     const script = document.createElement('script');
@@ -44,21 +52,57 @@ export function Analytics() {
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window,document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '${metaPixelId}');
+      ${pixelIds.map((id) => `fbq('init', '${id}');`).join('\n      ')}
       fbq('track', 'PageView');
     `;
     document.head.appendChild(script);
   }, []);
 
+  /**
+   * Переходы между /preland и /landing происходят внутри роутера, без перезагрузки
+   * страницы, поэтому инлайн-сниппет отработает PageView только один раз.
+   * Досылаем PageView вручную на каждую последующую смену маршрута.
+   */
+  useEffect(() => {
+    if (trackedPath.current === pathname) return;
+    trackedPath.current = pathname;
+
+    const w = window as unknown as {
+      gtag?: (...args: unknown[]) => void;
+      fbq?: (...args: unknown[]) => void;
+    };
+    w.fbq?.('track', 'PageView');
+    w.gtag?.('event', 'page_view', { page_path: pathname });
+  }, [pathname]);
+
   return null;
 }
 
-/** Отправка кастомного события в подключённые системы (если они есть). */
+/**
+ * Стандартные события Meta: их нужно слать через fbq('track', …), иначе
+ * в Ads Manager они попадут в кастомные и не будут доступны как конверсии.
+ */
+const metaStandardEvents = new Set([
+  'PageView',
+  'Lead',
+  'CompleteRegistration',
+  'Contact',
+  'SubmitApplication',
+  'Schedule',
+  'ViewContent',
+  'Search',
+  'InitiateCheckout',
+  'Purchase',
+  'Subscribe',
+  'StartTrial',
+]);
+
+/** Отправка события в подключённые системы (если они есть). */
 export function trackEvent(name: string, params?: Record<string, unknown>): void {
   const w = window as unknown as {
     gtag?: (...args: unknown[]) => void;
     fbq?: (...args: unknown[]) => void;
   };
   w.gtag?.('event', name, params ?? {});
-  w.fbq?.('trackCustom', name, params ?? {});
+  w.fbq?.(metaStandardEvents.has(name) ? 'track' : 'trackCustom', name, params ?? {});
 }

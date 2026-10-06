@@ -48,13 +48,24 @@ export const analyticsConfig = {
   metaPixelId: import.meta.env.VITE_META_PIXEL_ID ?? '',
 } as const;
 
-/** Список UTM-параметров, которые читаются из URL и уезжают в таблицу. */
+/**
+ * Параметры URL, которые читаются на входе и уезжают в таблицу.
+ * Список управляет всей цепочкой: чтением из адреса, переносом с preland на
+ * landing и составом payload формы — добавление строки сюда включает параметр
+ * целиком, править остальные файлы не нужно.
+ */
 export const trackedQueryParams = [
   'utm_source',
   'utm_medium',
   'utm_campaign',
   'utm_term',
   'utm_content',
+  // Идентификатор клика Keitaro. Без него депозит не связать с кликом,
+  // и постбэк в трекер отправить некуда.
+  'subid',
+  // Идентификатор клика Facebook. Keitaro шлёт конверсии в пиксель только
+  // при его наличии; заодно пригодится для параметра fbc в Conversions API.
+  'fbclid',
 ] as const;
 
 export type TrackedQueryParam = (typeof trackedQueryParams)[number];

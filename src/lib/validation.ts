@@ -5,7 +5,6 @@ export interface LeadFormValues {
   lastName: string;
   email: string;
   phone: string;
-  experience: string;
 }
 
 export type LeadFormErrors = Partial<Record<keyof LeadFormValues, string>>;
@@ -42,8 +41,6 @@ export function validateLeadForm(values: LeadFormValues): LeadFormErrors {
   const phone = values.phone.trim();
   if (!phone) errors.phone = e.phoneRequired;
   else if (!isValidUsPhone(phone)) errors.phone = e.phoneInvalid;
-
-  if (!values.experience) errors.experience = e.experienceRequired;
 
   return errors;
 }
