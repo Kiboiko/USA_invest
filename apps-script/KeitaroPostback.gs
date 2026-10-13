@@ -28,7 +28,7 @@ var KEITARO = {
    * 'https://ваш-трекер/click.php?subid={subid}&status={status}&payout={payout}'
    */
   POSTBACK_URL:
-    'http://176.126.163.66/6ba62fa/postback?subid={subid}&status={status}&payout={payout}',
+    'http://185.230.47.232/f78e2a4/postback?subid={subid}&status={status}&payout={payout}',
 
   /**
    * Событие Meta → статус конверсии Keitaro.

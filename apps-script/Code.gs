@@ -71,17 +71,21 @@ function doPost(e) {
     var targetRow = findFirstFreeRow(sheet, headers);
     sheet.getRange(targetRow, 1, 1, row.length).setValues([row]);
 
-    /* Lead в Meta теперь шлёт сайт (fbq track Lead в LeadForm.tsx), поэтому
-       серверная отправка отключена, иначе конверсии задвоятся. Чтобы вернуть
-       её, раскомментируйте блок и уберите trackEvent('Lead') на сайте.
-    if (typeof sendLeadEvent === 'function') {
+    /* Lead в Meta шлёт сайт (fbq track Lead в LeadForm.tsx) — поэтому сюда
+       его не возвращаем, иначе конверсия задвоится. А постбэк в Keitaro
+       раньше уходил из той же цепочки (через sendLeadEvent → sendEventForRow)
+       и с ней отключился. Восстанавливаем его отдельно, без Meta. */
+    if (typeof sendKeitaroPostback === 'function') {
       try {
-        sendLeadEvent(sheet, targetRow);
+        var get = function (header) {
+          var col = headers.indexOf(header) + 1;
+          return col ? String(sheet.getRange(targetRow, col).getValue()) : '';
+        };
+        sendKeitaroPostback(sheet, targetRow, 'Lead', get, undefined);
       } catch (ignored) {
         // молча: лид уже в таблице, это важнее
       }
     }
-    */
 
     notify(data);
 

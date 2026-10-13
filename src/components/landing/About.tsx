@@ -1,7 +1,7 @@
 import { about } from '@/data/landing';
 import { Panel } from '@/components/landing/Panel';
 
-const aboutImageUrl = '/images/warren-buffett-client.png';
+const aboutImageUrl = '/images/warren-buffett-about.png';
 
 /** Секция About: изображение слева, текст справа (на мобильном — друг под другом). */
 export function About() {

@@ -2,7 +2,7 @@ import { Bookmark, Facebook, Link2, Linkedin, Twitter } from 'lucide-react';
 import { article } from '@/data/preland';
 import { LocalVideo } from '@/components/common/LocalVideo';
 
-const articleVideoSrc = '/videos/finvoryx-platform.mp4';
+const articleVideoSrc = '/videos/finvoryx-preland.mp4';
 
 function formatDate(iso: string): string {
   const date = new Date(iso);
@@ -102,7 +102,7 @@ export function ArticleHead() {
         <LocalVideo
           src={articleVideoSrc}
           title={article.heroImageAlt}
-          poster="/images/warren-buffett-client.png"
+          poster={article.heroImage}
           className="rounded-lg border-news-line bg-paper-alt"
         />
         {article.heroCaption ? (
